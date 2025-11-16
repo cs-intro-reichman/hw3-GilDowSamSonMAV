@@ -11,7 +11,7 @@ public class Algebra {
 		System.out.println(times(10, 2));
 		System.out.println(pow(-2, 3));
 		System.out.println(div(-15, -3));
-		System.out.println(sqrt(0));
+		System.out.println(sqrt(-0));
 		System.out.println(mod(10, 3));
 	}
 
