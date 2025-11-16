@@ -23,7 +23,7 @@ public class LoanCalc {
 		System.out.print("\nPeriodical payment, using bi-section search: ");
 		System.out.println((int) bisectionSolver(loan, rate, n, epsilon));
 		System.out.println("number of iterations: " + iterationCounter);
-		System.out.println(endBalance(loan, rate, n, 10000));
+
 	}
 
 	// Computes the ending balance of a loan, given the loan amount, the periodical
@@ -57,20 +57,21 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
 	public static double bisectionSolver(double loan, double rate, int n, double epsilon) {
-		iterationCounter = 0;
-		double L = loan / n;
-		double H = loan;
+		double L = (loan / n);
+		double H = (loan);
 		double g = (L + H) / 2;
+		iterationCounter = 0;
 		while ((H - L) > epsilon) {
-			if (endBalance(loan, rate, n, g) * endBalance(loan, rate, n, L) > 0) {
-
+			if ((endBalance(loan, rate, n, g) * endBalance(loan, rate, n, L)) > 0) {
 				L = g;
+
 			} else {
 				H = g;
 			}
-			g = (L + H) / 2;
+			g = (L+ H)/2;
 			iterationCounter++;
 		}
 		return g;
 	}
+
 }

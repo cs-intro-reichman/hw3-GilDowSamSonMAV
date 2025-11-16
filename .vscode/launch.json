@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TestAlgebra",
+            "request": "launch",
+            "mainClass": "TestAlgebra",
+            "projectName": "hw3-GilDowSamSonMAV_12402348"
+        },
+        {
+            "type": "java",
+            "name": "Algebra",
+            "request": "launch",
+            "mainClass": "Algebra",
+            "projectName": "hw3-GilDowSamSonMAV_12402348"
+        },
+        {
+            "type": "java",
             "name": "Anagram",
             "request": "launch",
             "mainClass": "Anagram",

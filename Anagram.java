@@ -1,3 +1,7 @@
+
+import java.util.Random;
+import java.util.random.RandomGenerator;
+
 /** Functions for checking if a given string is an anagram. */
 public class Anagram {
 	public static void main(String args[]) {
@@ -11,7 +15,7 @@ public class Anagram {
 		System.out.println(preProcess("What? No way!!!"));
 
 		// Tests the randomAnagram function.
-		System.out.println("silent and " + randomAnagram("silent") + " are anagrams.");
+		System.out.println("silent and " + randomAnagram("LISTEN") + " are anagrams.");
 
 		// Performs a stress test of randomAnagram
 		String str = "1234567";
@@ -31,13 +35,12 @@ public class Anagram {
 	public static boolean isAnagram(String str1, String str2) {
 		str1 = preProcess(str1);
 		str2 = preProcess(str2);
-        if(str1.length() != str2.length()){
-			return false ;
+		if (str1.length() != str2.length()) {
+			return false;
 		}
-		for(int i = 0 ; i < str1.length() ; i++){
-			int indexOf = 0;
-			str1.substring(0, 1) + str2.substring(0, 1);
-			if(str2.indexOf(str1.charAt(i)) == -1 ){
+		for (int i = 0; i < str1.length(); i++) {
+
+			if (str2.indexOf(str1.charAt(i)) == -1) {
 				return false;
 			}
 		}
@@ -55,7 +58,7 @@ public class Anagram {
 		String f = "";
 		for (int i = 0; i < str.length(); i++) {
 			char c = str.charAt(i);
-			if ( ((c >= 97) && (c <= 122))) {
+			if (((c >= 97) && (c <= 122))) {
 				f = f + c;
 
 			}
@@ -69,6 +72,15 @@ public class Anagram {
 	// characters as the given string, re-arranged in a random order.
 	public static String randomAnagram(String str) {
 
-		return "";
+		String anagram = "";
+		while (str.length() > 0) {
+			int randomindex = (int) (Math.random() * str.length());
+			char f = str.charAt(randomindex);
+			anagram = anagram + f;
+		str = (str.substring(0,randomindex) + str.substring(randomindex + 1));
+
+
+		}
+		return anagram;
 	}
 }

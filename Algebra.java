@@ -7,11 +7,12 @@ public class Algebra {
 	public static void main(String args[]) {
 		// Tests some of the operations
 		System.out.println(plus(-1, -3)); // 2 + 3
-		System.out.println(minus(5, 3));
+		System.out.println(minus(-2, -3));
 		System.out.println(times(10, 2));
-		System.out.println(pow(5, 3));
-		System.out.println(div(10, 2));
-		System.out.println(sqrt(159));
+		System.out.println(pow(-2, 3));
+		System.out.println(div(-15, -3));
+		System.out.println(sqrt(0));
+		System.out.println(mod(10, 3));
 	}
 
 	// Returns x1 + x2
@@ -33,15 +34,21 @@ public class Algebra {
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		if (x2 >= 0){
-		for (int i = 0; i < x2; i++) {
-			x1--;
-		}
-		}else{
+		if (x2 >= 0) {
 			for (int i = 0; i < x2; i++) {
-			x1++;
-		}
+				x1--;
+			}
+		} else if (x2 < 0) {
+			for (int i = 0; i > x2; i--) {
+				x1++;
 
+			}
+			return x1;
+
+		} else {
+			for (int i = 0; i > x2; i++) {
+				x1++;
+			}
 		}
 		return x1;
 	}
@@ -49,31 +56,80 @@ public class Algebra {
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 		int sum = 0;
-		if(x1 < 0 && x2 < 0 ){
-		for (int i = 0; i < x1; i++) {
-			for (int j = 0; j < x2; j++) {
-				sum++;
+		int x3 = 0;
+		int x4 = 0;
+		if ((x1 > 1 && x2 > 1)) {
+			for (int i = 0; i < x2; i++) {
+				sum = plus(sum, x1);
+			}
+			return sum;
+		} else if ((x1 < 0 && x2 < 0)) {
+			x4 = minus(0, x2);
+			x3 = minus(0, x1);
+			sum = 0;
+			for (int i = 0; i < x4; i++) {
+				sum = plus(x3, sum);
+
 			}
 
-		}
-		}else if((x2 == 0 || x2 == 0)){
+			return sum;
+
+		} else if ((x2 == 0 || x1 == 0)) {
 			return 0;
-		}else{ 
-
-
+		} else if (x1 == 1) {
+			return x2;
+		} else if (x2 == 1) {
+			return x1;
+		} else if ((x1 < 0 && x2 > 0)) {
+			for (int i = 0; i < x2; i++) {
+				sum = plus(sum, x1);
+			}
+			return sum;
+		} else if (x1 > 0 && x2 < 0) {
+			for (int i = 0; i > x2; i--) {
+				sum = minus(sum, x1);
+			}
+			return sum;
 		}
-		return sum;
-
+		return x2;
 	}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
 		int sum = 1;
-		for (int i = 0; i < n; i++) {
-			sum = times(sum, x);
+		if (x > 1 && n > 1) {
+			for (int i = 0; i < n; i++) {
+				sum = times(sum, x);
 
+			}
+		} else if (x == 0) {
+			return 0;
+		} else if (x == 1) {
+			return 1;
+		} else if (x > 1 && n == 0) {
+			return 1;
+		} else if (x > 1 && n < 0) {
+			return 0;
+		} else if (x < 1 && n > 1) {
+			if (mod(n, 2) != 0) {
+				int x2 = minus(0, x);
+				int n2 = minus(0, n);
+				for (int i = 0; i < n; i++) {
+					sum = times(sum, x2);
+				}
+				return minus(0, sum);
+			} else {
+				int x2 = minus(0, x);
+				int n2 = minus(0, n);
+				for (int i = 0; i < n; i++) {
+					sum = times(sum, x2);
+				}
+				return sum;
+
+			}
 		}
 		return sum;
+
 	}
 
 	// Returns the integer part of x1 / x2
@@ -81,9 +137,38 @@ public class Algebra {
 		// Replace the following statement with your code
 		int sum = x1;
 		int count = 0;
-		while (sum >= x2) {
-			sum = minus(sum, x2);
-			count++;
+		if (x1 > 1 && x2 > 1) {
+			while (sum >= x2) {
+				sum = minus(sum, x2);
+				count++;
+			}
+		}
+		if (x2 == 0 && x1 > 0) {
+			return 0;
+		} else if (x1 < 0 && x2 > 1) {
+			while (sum < 0) {
+				sum = plus(sum, x2);
+				count++;
+			}
+			return minus(0, count);
+
+		} else if (x1 == 0 && x2 > 0) {
+			return 0;
+
+		} else if (x2 == 1) {
+			return x1;
+		} else if (x1 > 1 && x2 < 0) {
+			while (sum > 1) {
+				sum = plus(sum, x2);
+				count++;
+			}
+			return minus(0, count);
+		} else if (x1 < 0 && x2 < 0) {
+			while (sum < 0) {
+				sum = minus(sum, x2);
+				count++;
+			}
+			return count;
 		}
 
 		return count;
@@ -97,10 +182,12 @@ public class Algebra {
 	// Returns the integer part of sqrt(x)
 	public static int sqrt(int x) {
 		int i = 0;
-		while (x > pow(i, 2)) {
-			i++;
+		if (x >= 0) {
+			while (x >= pow(i, 2)) {
+				i++;
+			}
+			return minus(i, 1);
 		}
-		return minus(i, 1);
-
+		return 0;
 	}
 }
